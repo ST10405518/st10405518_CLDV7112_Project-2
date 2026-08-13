@@ -1,0 +1,1 @@
+{"OrderId":"8e2b0828-c5de-495e-b1e0-f3eb018fe4ff","CustomerId":"cus1001","ProductId":"prod_001","Quantity":100,"TotalAmount":2000,"Status":"Processing","CreatedAt":"2026-08-12T16:30:16.1971648Z"}{"MessageId":"1500fc32-47bf-4140-8376-c03ead6ff6e9","ProductId":"prod_001","Action":"Update","Quantity":10,"ImageName":"laptop","Timestamp":"2026-08-12T16:30:38.1673113Z"}

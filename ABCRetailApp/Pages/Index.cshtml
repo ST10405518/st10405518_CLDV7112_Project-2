@@ -1,0 +1,796 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "ABC Retail - Azure Storage Demo";
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .modern-header {
+        background: #2c3e50;
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        border-bottom: 4px solid #3498db;
+    }
+    
+    .modern-header h1 {
+        font-weight: 300;
+        letter-spacing: 2px;
+        margin: 0;
+    }
+    
+    .modern-header h2 {
+        font-weight: 400;
+        color: #3498db;
+        margin: 0.5rem 0 0 0;
+    }
+    
+    .modern-badge {
+        background: #3498db;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        letter-spacing: 1px;
+    }
+    
+    .modern-card {
+        background: white;
+        border: none;
+        border-radius: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+    }
+    
+    .modern-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header-modern {
+        background: #ecf0f1;
+        border-bottom: 2px solid #3498db;
+        color: #2c3e50;
+        padding: 1rem 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.875rem;
+    }
+    
+    .card-header-modern-alt {
+        background: #ecf0f1;
+        border-bottom: 2px solid #27ae60;
+        color: #2c3e50;
+        padding: 1rem 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.875rem;
+    }
+    
+    .card-header-modern-info {
+        background: #ecf0f1;
+        border-bottom: 2px solid #e74c3c;
+        color: #2c3e50;
+        padding: 1rem 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.875rem;
+    }
+    
+    .nav-modern {
+        border-bottom: 2px solid #3498db;
+        background: white;
+    }
+    
+    .nav-modern .nav-link {
+        color: #7f8c8d;
+        padding: 1rem 2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.875rem;
+        border: none;
+        border-bottom: 3px solid transparent;
+    }
+    
+    .nav-modern .nav-link:hover {
+        color: #3498db;
+        background: #f8f9fa;
+    }
+    
+    .nav-modern .nav-link.active {
+        color: #2c3e50;
+        background: white;
+        border-bottom: 3px solid #3498db;
+    }
+    
+    .btn-modern {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-modern:hover {
+        background: #2980b9;
+        color: white;
+    }
+    
+    .btn-modern-success {
+        background: #27ae60;
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-modern-success:hover {
+        background: #229954;
+        color: white;
+    }
+    
+    .form-control-modern {
+        border: 1px solid #bdc3c7;
+        border-radius: 0;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+    }
+    
+    .form-control-modern:focus {
+        border-color: #3498db;
+        box-shadow: none;
+    }
+    
+    .form-control-modern::placeholder {
+        color: #95a5a6;
+    }
+    
+    .table-modern {
+        border: 1px solid #ecf0f1;
+        margin-bottom: 0;
+    }
+    
+    .table-modern thead {
+        background: #2c3e50;
+        color: white;
+    }
+    
+    .table-modern th {
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.75rem;
+        padding: 1rem;
+        border: none;
+    }
+    
+    .table-modern td {
+        padding: 1rem;
+        border-top: 1px solid #ecf0f1;
+        font-size: 0.875rem;
+    }
+    
+    .table-modern tbody tr:hover {
+        background: #f8f9fa;
+    }
+    
+    .badge-modern {
+        background: #3498db;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .stat-modern {
+        background: white;
+        border: 1px solid #ecf0f1;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.2s ease;
+    }
+    
+    .stat-modern:hover {
+        border-color: #3498db;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-number-modern {
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: #3498db;
+        line-height: 1;
+    }
+    
+    .stat-label-modern {
+        color: #7f8c8d;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+    }
+    
+    .empty-modern {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #95a5a6;
+    }
+    
+    .empty-modern h4 {
+        color: #7f8c8d;
+        font-weight: 400;
+        margin-top: 1rem;
+    }
+    
+    .label-modern {
+        color: #2c3e50;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    footer {
+        background: #2c3e50;
+        color: #95a5a6;
+        padding: 2rem 0;
+        margin-top: 4rem;
+        border-top: 4px solid #3498db;
+    }
+    
+    footer p {
+        margin: 0;
+        font-size: 0.875rem;
+    }
+</style>
+
+<div class="modern-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>ABC RETAIL</h1>
+                <h2>Azure Storage Solution</h2>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <div class="modern-badge">
+                    Student: st10405518 | CLDV7112
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Stats Overview -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-modern">
+                <div class="stat-number-modern">@Model.Customers.Count</div>
+                <div class="stat-label-modern">Customers</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-modern">
+                <div class="stat-number-modern">@Model.Products.Count</div>
+                <div class="stat-label-modern">Products</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-modern">
+                <div class="stat-number-modern">@Model.Blobs.Count</div>
+                <div class="stat-label-modern">Images</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-modern">
+                <div class="stat-number-modern">@Model.LogFiles.Count</div>
+                <div class="stat-label-modern">Log Files</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-modern mb-4" id="storageTabs" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link @(Model.ActiveTab == "table" || Model.ActiveTab == null ? "active" : "")" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button">
+                Table Storage
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link @(Model.ActiveTab == "blob" ? "active" : "")" id="blob-tab" data-bs-toggle="tab" data-bs-target="#blob" type="button">
+                Blob Storage
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link @(Model.ActiveTab == "queue" ? "active" : "")" id="queue-tab" data-bs-toggle="tab" data-bs-target="#queue" type="button">
+                Queue Storage
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link @(Model.ActiveTab == "file" ? "active" : "")" id="file-tab" data-bs-toggle="tab" data-bs-target="#file" type="button">
+                File Storage
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="storageTabsContent">
+        <!-- Table Storage Section -->
+        <div class="tab-pane fade show active" id="table" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern">
+                            Add Customer
+                        </div>
+                        <div class="card-body">
+                            <form method="post" asp-page-handler="AddCustomer">
+                                <div class="mb-3">
+                                    <label class="label-modern">First Name</label>
+                                    <input type="text" name="FirstName" class="form-control-modern" placeholder="John" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Last Name</label>
+                                    <input type="text" name="LastName" class="form-control-modern" placeholder="Doe" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Email</label>
+                                    <input type="email" name="Email" class="form-control-modern" placeholder="john@example.com" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Phone Number</label>
+                                    <input type="text" name="PhoneNumber" class="form-control-modern" placeholder="+27 12 345 6789" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Address</label>
+                                    <input type="text" name="Address" class="form-control-modern" placeholder="123 Main Street, Johannesburg" />
+                                </div>
+                                <button type="submit" class="btn-modern w-100">Add Customer</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern-alt">
+                            Add Product
+                        </div>
+                        <div class="card-body">
+                            <form method="post" asp-page-handler="AddProduct">
+                                <div class="mb-3">
+                                    <label class="label-modern">Product Name</label>
+                                    <input type="text" name="Name" class="form-control-modern" placeholder="Premium Laptop" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Category</label>
+                                    <input type="text" name="Category" class="form-control-modern" placeholder="Electronics" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Price (R)</label>
+                                    <input type="number" step="0.01" min="0" name="Price" class="form-control-modern" placeholder="9999.99" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Description</label>
+                                    <textarea name="Description" class="form-control-modern" placeholder="High-performance laptop for professionals"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Stock Quantity</label>
+                                    <input type="number" name="StockQuantity" class="form-control-modern" placeholder="50" />
+                                </div>
+                                <button type="submit" class="btn-modern-success w-100">Add Product</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern">
+                            Customers <span class="badge-modern ms-2">@Model.Customers.Count</span>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Customers.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-modern">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var customer in Model.Customers)
+                                            {
+                                                <tr>
+                                                    <td>@customer.FirstName @customer.LastName</td>
+                                                    <td>@customer.Email</td>
+                                                    <td>@customer.PhoneNumber</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="empty-modern">
+                                    <h4>No customers yet. Add your first customer.</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern-alt">
+                            Products <span class="badge-modern ms-2" style="background: #27ae60;">@Model.Products.Count</span>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Products.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-modern">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Category</th>
+                                                <th>Price</th>
+                                                <th>Stock</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var product in Model.Products)
+                                            {
+                                                <tr>
+                                                    <td>@product.Name</td>
+                                                    <td>@product.Category</td>
+                                                    <td>R@(product.Price.ToString("N2"))</td>
+                                                    <td>@product.StockQuantity</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="empty-modern">
+                                    <h4>No products yet. Add your first product.</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blob Storage Section -->
+        <div class="tab-pane fade" id="blob" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern-info">
+                            Upload Image
+                        </div>
+                        <div class="card-body">
+                            <form method="post" enctype="multipart/form-data" asp-page-handler="UploadBlob">
+                                <div class="mb-3">
+                                    <label class="label-modern">Image Name</label>
+                                    <input type="text" name="BlobName" class="form-control-modern" placeholder="product-image.jpg" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Image File</label>
+                                    <input type="file" name="ImageFile" class="form-control-modern" accept="image/*" required />
+                                    <small class="text-muted">Supported: JPG, PNG, GIF, WebP</small>
+                                </div>
+                                <button type="submit" class="btn-modern w-100" style="background: #e74c3c;">Upload Image</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern-info">
+                            Images <span class="badge-modern ms-2" style="background: #e74c3c;">@Model.Blobs.Count</span>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Blobs.Any())
+                            {
+                                <div class="row">
+                                    @foreach (var blob in Model.Blobs)
+                                    {
+                                        <div class="col-md-6 mb-3">
+                                            <div class="modern-card" style="padding: 1rem;">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="mb-0 text-truncate" style="max-width: 150px;">@blob.Name</h6>
+                                                    <span class="badge-modern" style="background: #e74c3c;">@((blob.Properties.ContentLength.HasValue ? (blob.Properties.ContentLength.Value / 1024).ToString("N0") : "0")) KB</span>
+                                                </div>
+                                                <p class="text-muted small mb-2">@blob.Properties.ContentType</p>
+                                                <form method="post" asp-page-handler="DeleteBlob">
+                                                    <input type="hidden" name="BlobName" value="@blob.Name" />
+                                                    <button type="submit" class="btn btn-sm btn-danger w-100">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="empty-modern">
+                                    <h4>No images yet. Upload your first product image.</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Queue Storage Section -->
+        <div class="tab-pane fade" id="queue" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern">
+                            Add Order to Queue
+                        </div>
+                        <div class="card-body">
+                            <form method="post" asp-page-handler="AddOrder">
+                                <div class="mb-3">
+                                    <label class="label-modern">Customer ID</label>
+                                    <input type="text" name="CustomerId" class="form-control-modern" placeholder="cust_001" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Product ID</label>
+                                    <input type="text" name="ProductId" class="form-control-modern" placeholder="prod_001" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Quantity</label>
+                                    <input type="number" name="Quantity" class="form-control-modern" placeholder="2" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Total Amount</label>
+                                    <input type="number" step="0.01" name="TotalAmount" class="form-control-modern" placeholder="1999.99" required />
+                                </div>
+                                <button type="submit" class="btn-modern w-100">Add Order</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern-alt">
+                            Add Inventory Message
+                        </div>
+                        <div class="card-body">
+                            <form method="post" asp-page-handler="AddInventory">
+                                <div class="mb-3">
+                                    <label class="label-modern">Product ID</label>
+                                    <input type="text" name="ProductId" class="form-control-modern" placeholder="prod_001" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Action</label>
+                                    <select name="Action" class="form-control-modern">
+                                        <option value="Update">Update</option>
+                                        <option value="Restock">Restock</option>
+                                        <option value="Check">Check</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Quantity</label>
+                                    <input type="number" name="Quantity" class="form-control-modern" placeholder="10" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Image Name</label>
+                                    <input type="text" name="ImageName" class="form-control-modern" placeholder="product-image.jpg" />
+                                </div>
+                                <button type="submit" class="btn-modern-success w-100">Add Inventory Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern">
+                            Order Queue <span class="badge-modern ms-2">@Model.OrderQueueLength</span>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.OrderQueueMessages.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-modern">
+                                        <thead>
+                                            <tr>
+                                                <th>Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var msg in Model.OrderQueueMessages)
+                                            {
+                                                var order = System.Text.Json.JsonSerializer.Deserialize<ABCRetailApp.Services.OrderMessage>(msg.MessageText);
+                                                <tr>
+                                                    <td class="small">
+                                                        <strong>Order:</strong> @(order?.OrderId)<br/>
+                                                        <strong>Customer:</strong> @(order?.CustomerId)<br/>
+                                                        <strong>Product:</strong> @(order?.ProductId)<br/>
+                                                        <strong>Qty:</strong> @(order?.Quantity)<br/>
+                                                        <strong>Total:</strong> R@(order?.TotalAmount.ToString("N2") ?? "0.00")<br/>
+                                                        <strong>Status:</strong> @(order?.Status)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="empty-modern">
+                                    <h4>No orders in queue. Add your first order.</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern-alt">
+                            Inventory Queue <span class="badge-modern ms-2" style="background: #27ae60;">@Model.InventoryQueueLength</span>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.InventoryQueueMessages.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-modern">
+                                        <thead>
+                                            <tr>
+                                                <th>Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var msg in Model.InventoryQueueMessages)
+                                            {
+                                                var inventory = System.Text.Json.JsonSerializer.Deserialize<ABCRetailApp.Services.InventoryMessage>(msg.MessageText);
+                                                <tr>
+                                                    <td class="small">
+                                                        <strong>Product:</strong> @(inventory?.ProductId)<br/>
+                                                        <strong>Action:</strong> @(inventory?.Action)<br/>
+                                                        <strong>Quantity:</strong> @(inventory?.Quantity)<br/>
+                                                        <strong>Image:</strong> @(inventory?.ImageName)<br/>
+                                                        <strong>Time:</strong> @(inventory?.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"))
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="empty-modern">
+                                    <h4>No inventory messages. Add your first message.</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Storage Section -->
+        <div class="tab-pane fade @(Model.ActiveTab == "file" ? "show active" : "")" id="file" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern">
+                            Upload Log File
+                        </div>
+                        <div class="card-body">
+                            <form method="post" enctype="multipart/form-data" asp-page-handler="UploadLogFile">
+                                <div class="mb-3">
+                                    <label class="label-modern">File Name</label>
+                                    <input type="text" name="FileName" class="form-control-modern" placeholder="system-log.txt" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label-modern">Log File</label>
+                                    <input type="file" name="LogFile" class="form-control-modern" required />
+                                    <small class="text-muted">Supported: TXT, LOG, JSON</small>
+                                </div>
+                                <button type="submit" class="btn-modern w-100">Upload Log File</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern-alt">
+                            Create Quick Log Entry
+                        </div>
+                        <div class="card-body">
+                            <form method="post" asp-page-handler="CreateLogEntry">
+                                <div class="mb-3">
+                                    <label class="label-modern">Log Content</label>
+                                    <textarea name="LogContent" class="form-control-modern" rows="4" placeholder="System started successfully at 2026-08-10 19:00:00" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-modern-success w-100">Create Log Entry</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="modern-card mb-4">
+                        <div class="card-header-modern">
+                            Log Files <span class="badge-modern ms-2">@Model.LogFiles.Count</span>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.LogFiles.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-modern">
+                                        <thead>
+                                            <tr>
+                                                <th>File Name</th>
+                                                <th>Size</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var file in Model.LogFiles)
+                                            {
+                                                var fileName = file is ABCRetailApp.Services.LocalFileItem localItem ? localItem.Name : file.GetType().GetProperty("Name")?.GetValue(file)?.ToString();
+                                                var fileSize = file is ABCRetailApp.Services.LocalFileItem localItem2 ? localItem2.FileSize.ToString() : file.GetType().GetProperty("FileSize")?.GetValue(file)?.ToString();
+                                                <tr>
+                                                    <td>@fileName</td>
+                                                    <td>@fileSize bytes</td>
+                                                    <td>
+                                                        <form method="post" asp-page-handler="DeleteLogFile">
+                                                            <input type="hidden" name="FileName" value="@fileName" />
+                                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="empty-modern">
+                                    <h4>No log files yet. Create your first log entry.</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>ABC Retail Azure Storage Solution | Student: st10405518 | CLDV7112</p>
+        <p>Powered by Azure Storage Services</p>
+    </div>
+</footer>
