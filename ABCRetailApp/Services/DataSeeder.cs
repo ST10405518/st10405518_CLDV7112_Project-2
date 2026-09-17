@@ -46,7 +46,7 @@ public class DataSeeder
             };
 
             var existingCustomers = await _tableStorageService.GetAllCustomersAsync();
-            if (existingCustomers.Count == 0)
+            if (existingCustomers.Count < 5)
             {
                 foreach (var customer in customers)
                 {
@@ -170,7 +170,7 @@ public class DataSeeder
             };
 
             var logFiles = await _fileStorageService.GetAllLogFilesAsync();
-            if (logFiles.Count == 0)
+            if (logFiles.Count < 5)
             {
                 foreach (var logEntry in logEntries)
                 {

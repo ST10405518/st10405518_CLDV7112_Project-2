@@ -2,7 +2,7 @@
 
 **Student Number:** st10405518  
 **Module Code:** CLDV7112  
-**Project:** Project 1 - Azure Storage Solution
+**Project:** Project 1 & 2 - Azure Storage Solution with Azure Functions Integration
 
 ## Overview
 
@@ -11,6 +11,15 @@ This web application demonstrates the use of various Azure Storage Services for 
 - **Azure Blob Storage** - Product images and multimedia content
 - **Azure Queue Storage** - Order processing and inventory management
 - **Azure Files** - Log file storage
+
+### Project 2 Extension
+Project 2 extends this application with Azure Functions that provide serverless integration with Azure Storage services:
+- **Table Storage Function** - Serverless customer and product data operations
+- **Blob Storage Function** - Serverless image upload and management
+- **Queue Storage Function** - Serverless order and inventory message processing
+- **Azure Files Function** - Serverless log file management
+
+See the `ABCRetailFunctions` folder for the Azure Functions implementation.
 
 ## Prerequisites
 
@@ -513,28 +522,50 @@ You need to capture screenshots of:
 ## Project Structure
 
 ```
-ABCRetailApp/
-├── Services/
-│   ├── TableStorageService.cs      - Azure Table Storage operations
-│   ├── BlobStorageService.cs       - Azure Blob Storage operations
-│   ├── QueueStorageService.cs      - Azure Queue Storage operations
-│   └── FileStorageService.cs       - Azure Files operations
-├── Pages/
-│   ├── Index.cshtml                - Main UI with all storage operations
-│   └── Index.cshtml.cs            - Page model with handlers
-├── Program.cs                     - Application configuration
-├── appsettings.json               - Configuration settings
-└── ABCRetailApp.csproj           - Project file
+st10405518_CLDV7112_Project1/
+├── ABCRetailApp/                  - Project 1: Web Application
+│   ├── Services/
+│   │   ├── TableStorageService.cs      - Azure Table Storage operations
+│   │   ├── BlobStorageService.cs       - Azure Blob Storage operations
+│   │   ├── QueueStorageService.cs      - Azure Queue Storage operations
+│   │   └── FileStorageService.cs       - Azure Files operations
+│   ├── Pages/
+│   │   ├── Index.cshtml                - Main UI with all storage operations
+│   │   └── Index.cshtml.cs            - Page model with handlers
+│   ├── Program.cs                     - Application configuration
+│   ├── appsettings.json               - Configuration settings
+│   └── ABCRetailApp.csproj           - Project file
+├── ABCRetailFunctions/            - Project 2: Azure Functions
+│   ├── Functions/
+│   │   ├── TableStorageFunction.cs     - Serverless Table Storage operations
+│   │   ├── BlobStorageFunction.cs      - Serverless Blob Storage operations
+│   │   ├── QueueStorageFunction.cs     - Serverless Queue Storage operations
+│   │   └── FileStorageFunction.cs      - Serverless Azure Files operations
+│   ├── Program.cs                     - Functions host configuration
+│   ├── host.json                      - Functions host configuration
+│   ├── local.settings.json             - Local development settings
+│   ├── EventServicesDiscussion.md      - Discussion on Event Hubs & Service Bus
+│   └── README.md                       - Functions project documentation
+└── ABCRetailApp.sln               - Solution file
 ```
 
 ## Features Implemented
 
+### Project 1 Features
 ✅ Azure Table Storage for customer profiles and products  
 ✅ Azure Blob Storage for product images  
 ✅ Azure Queue Storage for order processing and inventory  
 ✅ Azure Files for log file storage  
 ✅ Web UI with forms for all storage operations  
 ✅ Scalable, reliable, and cost-effective design  
+
+### Project 2 Features
+✅ Azure Functions for Table Storage operations (store/retrieve customers and products)
+✅ Azure Functions for Blob Storage operations (upload/list/delete blobs)
+✅ Azure Functions for Queue Storage operations (send/receive/peek messages)
+✅ Azure Functions for Azure Files operations (upload/download/list log files)
+✅ Serverless architecture for enhanced scalability
+✅ Discussion on Azure Event Hubs and Service Bus  
 
 ## Troubleshooting
 
@@ -554,6 +585,7 @@ The deployed application should follow this format:
 
 ## Submission Checklist
 
+### Project 1 Submission
 - [ ] Student number included
 - [ ] Module code included
 - [ ] Screenshots of Table Storage (5+ customers, 5+ products)
@@ -563,3 +595,51 @@ The deployed application should follow this format:
 - [ ] Screenshots of deployed web application
 - [ ] URL of deployed application (http://st10405518.azurewebsites.net)
 - [ ] GitHub link for source code
+
+### Project 2 Submission (Local Testing with Azurite)
+**Note:** Testing performed locally using Azurite Azure Storage Emulator due to Azure credit limitations.
+
+- [ ] Student number included (st10405518)
+- [ ] Module code included (CLDV7112)
+- [ ] Code screenshots for all 4 Azure Functions
+  - [ ] TableStorageFunction.cs
+  - [ ] BlobStorageFunction.cs
+  - [ ] QueueStorageFunction.cs
+  - [ ] FileStorageFunction.cs
+- [ ] Screenshots of web application with sample data
+  - [ ] 5+ customers in Table Storage
+  - [ ] 5+ products in Table Storage
+  - [ ] 5+ images in Blob Storage
+  - [ ] 5+ order messages in Queue Storage
+  - [ ] 5+ inventory messages in Queue Storage
+  - [ ] 5+ log files in Azure Files
+- [ ] Written answers for Azure Event Hubs discussion (see EventServicesDiscussion.md)
+- [ ] Written answers for Azure Service Bus discussion (see EventServicesDiscussion.md)
+- [ ] Note: "Testing performed locally using Azurite Azure Storage Emulator due to Azure credit limitations"
+- [ ] GitHub link for source code
+
+## Running the Complete Solution
+
+### Running the Web Application (Project 1)
+```powershell
+cd ABCRetailApp
+dotnet run
+```
+The web application will be available at: `http://localhost:5184`
+
+### Running the Azure Functions (Project 2)
+```powershell
+cd ABCRetailFunctions
+func start
+```
+The functions will be available at: `http://localhost:7071/api`
+
+## Azure Functions Documentation
+
+For detailed information about the Azure Functions implementation, including:
+- Function endpoints and usage
+- Deployment instructions
+- Testing examples
+- Event services discussion
+
+See: `ABCRetailFunctions/README.md`

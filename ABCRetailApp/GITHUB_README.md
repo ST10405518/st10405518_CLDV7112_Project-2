@@ -153,9 +153,24 @@ Update `appsettings.json` with your Azurite connection string:
 
 ### Production Deployment
 
-Update the connection string in Azure App Service settings:
+**Note:** This project is deployment-ready for Azure. Due to Azure credit exhaustion, local testing with Azurite was used for development and submission.
+
+To deploy to Azure:
+
+1. Update the connection string in Azure App Service settings:
 ```
 AzureStorage__ConnectionString = "Your Azure Storage connection string"
+```
+
+2. Deploy using Azure CLI:
+```bash
+az webapp up --name st10405518 --resource-group <your-resource-group>
+```
+
+3. Deploy Azure Functions:
+```bash
+cd ABCRetailFunctions
+func azure functionapp publish <your-function-app-name>
 ```
 
 ## 🌐 Deployment
@@ -178,21 +193,33 @@ The repository includes a GitHub Actions workflow for automated CI/CD:
 ## 📁 Project Structure
 
 ```
-ABCRetailApp/
-├── Services/
-│   ├── TableStorageService.cs      # Azure Table Storage operations
-│   ├── BlobStorageService.cs       # Azure Blob Storage operations
-│   ├── QueueStorageService.cs      # Azure Queue Storage operations
-│   ├── FileStorageService.cs       # Azure Files operations
-│   └── DataSeeder.cs              # Sample data seeding
-├── Pages/
-│   ├── Index.cshtml                # Main UI with all storage operations
-│   └── Index.cshtml.cs            # Page model with handlers
-├── Program.cs                     # Application configuration
-├── appsettings.json               # Configuration settings
-├── ABCRetailApp.csproj           # Project file
-├── README.md                      # Assignment documentation
-└── GITHUB_README.md              # This file
+st10405518_CLDV7112_Project1/
+├── ABCRetailApp/                  # Project 1: Web Application
+│   ├── Services/
+│   │   ├── TableStorageService.cs      # Azure Table Storage operations
+│   │   ├── BlobStorageService.cs       # Azure Blob Storage operations
+│   │   ├── QueueStorageService.cs      # Azure Queue Storage operations
+│   │   ├── FileStorageService.cs       # Azure Files operations
+│   │   └── DataSeeder.cs              # Sample data seeding
+│   ├── Pages/
+│   │   ├── Index.cshtml                # Main UI with all storage operations
+│   │   └── Index.cshtml.cs            # Page model with handlers
+│   ├── Program.cs                     # Application configuration
+│   ├── appsettings.json               # Configuration settings
+│   ├── ABCRetailApp.csproj           # Project file
+│   ├── README.md                      # Assignment documentation
+│   └── GITHUB_README.md              # This file
+├── ABCRetailFunctions/             # Project 2: Azure Functions
+│   ├── Functions/
+│   │   ├── TableStorageFunction.cs    # Azure Functions for Table Storage
+│   │   ├── BlobStorageFunction.cs     # Azure Functions for Blob Storage
+│   │   ├── QueueStorageFunction.cs    # Azure Functions for Queue Storage
+│   │   └── FileStorageFunction.cs     # Azure Functions for Azure Files
+│   ├── Program.cs                     # Functions host configuration
+│   ├── host.json                      # Functions host settings
+│   ├── local.settings.json            # Local environment settings
+│   └── ABCRetailFunctions.csproj      # Functions project file
+└── ABCRetailApp.sln               # Visual Studio solution file
 ```
 
 ## 🧪 Testing
@@ -237,13 +264,24 @@ ABCRetailApp/
 
 ### 📋 Submission Checklist
 
-- [ ] Screenshots of Table Storage (5+ customers, 5+ products)
-- [ ] Screenshots of Blob Storage (5+ images)
-- [ ] Screenshots of Queue Storage (5+ orders, 5+ inventory messages)
-- [ ] Screenshots of Azure Files (5+ log files)
-- [ ] Screenshot of deployed web application
-- [ ] URL of deployed application: http://st10405518.azurewebsites.net
-- [ ] GitHub link: https://github.com/yourusername/st10405518_CLDV7112_Project1
+**Project 1:**
+- [x] Screenshots of Table Storage (5+ customers, 5+ products)
+- [x] Screenshots of Blob Storage (5+ images)
+- [x] Screenshots of Queue Storage (5+ orders, 5+ inventory messages)
+- [x] Screenshots of Azure Files (5+ log files)
+- [x] Screenshot of web application (local testing)
+- [x] URL format: http://st10405518.azurewebsites.net (intended)
+- [x] GitHub repository
+
+**Project 2:**
+- [x] Azure Functions for Table Storage
+- [x] Azure Functions for Blob Storage
+- [x] Azure Functions for Queue Storage
+- [x] Azure Functions for Azure Files
+- [x] Discussion: Azure Event Hubs
+- [x] Discussion: Azure Service Bus
+- [x] Code screenshots for all functions
+- [x] Local testing evidence with Azurite
 
 ## 🐛 Troubleshooting
 
